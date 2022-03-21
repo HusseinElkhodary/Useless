@@ -1,0 +1,38 @@
+#include <Servo.h>
+
+Servo doorServo;
+Servo fingerServo;
+
+int swPin = 2;               //switch on pin 2
+
+int pos = 0;
+int selectedMove = 0;             //move selector
+
+void setup()
+{
+  pinMode(swPin, INPUT_PULLUP);
+  Serial.begin(9600);
+  doorServo.attach(9);           //set door servo on Pin 9 pwm
+  fingerServo.attach(10);          //set finger servo on Pin 10 pwm
+  doorServo.write(80);           //set door to hiding position
+  fingerServo.write(0);            //set finger to hiding position
+}
+
+
+void loop() {
+
+
+  //if the switch is on, move door and finger to switch it off
+  if (digitalRead(swPin) == LOW)
+  {
+   doorServo.write(155);
+    fingerServo.write(180);
+
+
+  }
+  else {
+  doorServo.write(80);
+    fingerServo.write(0);
+   
+  }
+}
